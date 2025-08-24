@@ -32,14 +32,26 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
 ## Project Structure
 
 ```
-ecommerce/
+scalable-ecommerce-app/
 ├── app/
-│ ├── models/
-│ ├── routes/
-│ ├── templates/
 │ ├── static/
-│ └── utils/
-├── migrations/
+│ │ └── styles.css
+│ ├── templates/
+│ │ ├── 404.html
+│ │ ├── base.html
+│ │ ├── cart.html
+│ │ ├── checkout.html
+│ │ ├── index.html
+│ │ ├── product.html
+│ │ └── products.html
+│ ├── __init__.py
+│ ├── api.py
+│ ├── config.py
+│ ├── extensions.py
+│ └── models.py
+├── alembic.ini
+├── wsgi.py
+├── Procfile
 ├── config.py
 ├── run.py
 └── requirements.txt
