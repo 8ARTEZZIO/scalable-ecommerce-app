@@ -2,6 +2,8 @@
 
 A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy**, and **Bootstrap** for clean and responsive UI display. This project is designed with extensibility, modularity, and real-world architecture in mind.
 
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ca19ce9b-ad7a-4aac-8774-c81da7a081a7" />
+
 ---
 
 ## Features
