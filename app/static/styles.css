@@ -1,0 +1,54 @@
+body {
+    background-image: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=2348&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+}
+.search-input:focus {
+  border-color: var(--bs-success);
+  box-shadow: 0 0 0 .20rem rgba(var(--bs-success-rgb), .20);
+  outline: 0;
+}
+
+/* Frosted look */
+.frosted {
+  background-color: rgba(33,37,41,.55);
+  -webkit-backdrop-filter: saturate(140%) blur(8px);
+  backdrop-filter: saturate(140%) blur(8px);
+}
+
+/* Soft edge blur that doesn't affect layout */
+.header-blur,
+.footer-blur { position: relative; }
+
+.header-blur::after,
+.footer-blur::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 16px;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  /* fade out the blur so it's delicate */
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+}
+
+/* Place the strips at the edges (inside the elements) */
+.header-blur::after { bottom: 0; }
+.footer-blur::before { top: 0; }
+
+/* Fallback if backdrop-filter isn't supported */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .header-blur::after {
+    background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,0));
+    filter: blur(6px);
+  }
+  .footer-blur::before {
+    background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,0));
+    filter: blur(6px);
+  }
+}
+
+.frosted.bg-dark, .frosted.text-bg-dark {
+  --bs-bg-opacity: .99;
+  background-color: rgba(33,37,41,.70) !important;
+}

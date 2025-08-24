@@ -1,5 +1,10 @@
-{% extends 'base.html' %}
-
-
+{% extends "base.html" %}
 {% block content %}
+  <form class="fixed-top start-50 top-50 translate-middle w-100" style="max-width:640px;" action="{{ url_for('products') }}" method="get">
+    <div class="input-group input-group-lg shadow">
+      <input type="search" name="q" class="form-control search-input"
+             placeholder="Search products..." aria-label="Search products">
+      <button class="btn btn-success" type="submit">Search</button>
+    </div>
+  </form>
 {% endblock %}
