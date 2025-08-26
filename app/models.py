@@ -4,15 +4,19 @@ All the SQLAlchemy models.
 Keep it framework-agnostic and light.
 """
 from extensions import db
-from sqlalchemy import String, DateTime
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import String, DateTime, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 
 class Users(db.Model):
+    __tablename__ = "users_table"
+
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(unique=True)
     email: Mapped[str] = mapped_column(unique=True)
     password_hash: Mapped[str] = mapped_column(String(225))
     created_at: Mapped[str] = mapped_column(DateTime)
+    cart: Mapped["Cart"] = relationship(back_populates="users")
 
 
 class Products(db.Model):
@@ -32,10 +36,14 @@ class Products(db.Model):
 
 
 class Cart(db.Model):
+    __tablename__ = "cart_table"
+
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(unique=True)
     created_at: Mapped[str] = mapped_column(DateTime)
     updated_at: Mapped[str]
+    users_id: Mapped[int] = mapped_column(ForeignKey("users_table.id"))
+    users: Mapped["Users"] = relationship(back_populates="cart")
 
 
 class Order(db.Model):  # finalized purchase
@@ -99,10 +107,10 @@ class Shipments(db.Model):
 #TODO
 # Connect all the relationships
 
-# Relationships (at a glance)
-# User 1—1 Cart: users.id → carts.user_id (unique)
-# Cart — Product (via CartItem): cart_items (cart_id, product_id, quantity)
-# User 1— Orders*: orders.user_id (nullable for guests)
-# Order — Product (via OrderItem): order_items (order_id, product_id, quantity, unit_price, …)
-# Order 1—1 Address (billing/shipping): FK(s) to addresses or inline address fields on orders
-# Order 1— Payments*, Order 1— Shipments*
+# Relationships (at a glance) put '✔' if done
+# [✔]User 1—1 Cart: users.id → carts.user_id (unique)
+# [ ]Cart — Product (via CartItem): cart_items (cart_id, product_id, quantity)
+# [ ]User 1— Orders*: orders.user_id (nullable for guests)
+# [ ]Order — Product (via OrderItem): order_items (order_id, product_id, quantity, unit_price, …)
+# [ ]Order 1—1 Address (billing/shipping): FK(s) to addresses or inline address fields on orders
+# [ ]Order 1— Payments*, Order 1— Shipments*
