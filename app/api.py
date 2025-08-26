@@ -20,5 +20,9 @@ def hello_world():
 def products():
     return render_template("products.html")
 
+@app.route("/error")
+def error():
+    return render_template("404.html")
+
 if __name__ == "__main__":
     app.run(port=5050, debug=True)
