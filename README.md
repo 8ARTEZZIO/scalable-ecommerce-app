@@ -96,7 +96,7 @@ Pull requests and contributions are welcome. Please open an issue first to discu
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
 
