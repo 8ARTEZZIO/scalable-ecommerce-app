@@ -3,15 +3,15 @@ All the SQLAlchemy models.
 [data shapes + relationships]
 Keep it framework-agnostic and light.
 """
+from datetime import datetime
 from extensions import db, Base
 from sqlalchemy import String, DateTime, ForeignKey, Table, Column
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-association_table = Table(
-    "association_table",
-    Base.metadata,
-    Column("left_id", ForeignKey("cart_table.id"), primary_key=True),
-    Column("right_id", ForeignKey("products_table.id"), primary_key=True),
+order_products = db.Table(
+    "order_products",
+    db.Column("order_id", db.ForeignKey("cart_table.id"), primary_key=True),
+    db.Column("product_id", db.ForeignKey("products_table.id"), primary_key=True),
 )
 
 class Users(db.Model):
@@ -22,7 +22,8 @@ class Users(db.Model):
     email: Mapped[str] = mapped_column(unique=True)
     password_hash: Mapped[str] = mapped_column(String(225))
     created_at: Mapped[str] = mapped_column(DateTime)
-    cart: Mapped["Cart"] = relationship(back_populates="users")
+    carts: Mapped["Cart"] = relationship(back_populates="users")
+    orders: Mapped[list["Order"]] = relationship(back_populates="users")
 
 
 class Products(db.Model):
@@ -47,17 +48,17 @@ class Cart(db.Model):
     __tablename__ = "cart_table"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    user_id: Mapped[int] = mapped_column(unique=True)
     created_at: Mapped[str] = mapped_column(DateTime)
     updated_at: Mapped[str]
-    users_id: Mapped[int] = mapped_column(ForeignKey("users_table.id"))
+    user_id: Mapped[int] = mapped_column(ForeignKey("users_table.id"))
     users: Mapped["Users"] = relationship(back_populates="cart")
-    children: Mapped[list[Products]] = relationship(secondary=association_table)
+    children: Mapped[list[Products]] = relationship(secondary=order_products)
 
 
 class Order(db.Model):  # finalized purchase
     id: Mapped[int] = mapped_column(primary_key=True)
-    user_id: Mapped[int] = mapped_column(nullable=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users_table.id"), nullable=True)
+    users: Mapped["Users"] = relationship(back_populates="order")
     status: Mapped[str]
     subtotal: Mapped[int]
     tax_total: Mapped[int]
@@ -65,7 +66,7 @@ class Order(db.Model):  # finalized purchase
     discount_total: Mapped[int]
     grand_total: Mapped[int]
     currency: Mapped[str]
-    placed_at: Mapped[str] = mapped_column(DateTime)
+    placed_at: Mapped[datetime | None] = mapped_column(db.DateTime)
     billing_address_id: Mapped[str]
     shipping_address_id: Mapped[str]
 
@@ -117,8 +118,8 @@ class Shipments(db.Model):
 # Connect all the relationships
 # Relationships (at a glance) put '✔' if done
 # [✔]User 1—1 Cart: users.id → carts.user_id (unique)
-# [✔]Cart — Product (via CartItem): cart_items (cart_id, product_id, quantity)
-# [ ]User 1— Orders*: orders.user_id (nullable for guests)
+# [✔]Cart — Product: cart_items (cart_id, product_id, quantity)
+# [✔]User 1— Orders*: orders.user_id (nullable for guests)
 # [ ]Order — Product (via OrderItem): order_items (order_id, product_id, quantity, unit_price, …)
 # [ ]Order 1—1 Address (billing/shipping): FK(s) to addresses or inline address fields on orders
 # [ ]Order 1— Payments*, Order 1— Shipments*
