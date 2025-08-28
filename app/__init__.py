@@ -11,15 +11,16 @@ import os
 from datetime import datetime
 from flask import Flask, render_template
 from .extensions import db, migrate, login_manager, csrf
-from .config import DevConfig, TestConfig, ProdConfig
+from .config import DevConfig, ProdConfig
 from .models import Users
+
 
 def create_app() -> Flask:
     app = Flask(__name__, template_folder="templates", static_folder="static")
 
     # 1) Config (choose by APP_ENV=dev|test|prod; defaults to dev)
     env = os.getenv("APP_ENV", "dev").lower()
-    cfg = {"dev": DevConfig, "test": TestConfig, "prod": ProdConfig}.get(env, DevConfig)
+    cfg = {"dev": DevConfig, "prod": ProdConfig}.get(env, DevConfig)
     app.config.from_object(cfg)
 
     # 2) Init extensions
@@ -31,7 +32,7 @@ def create_app() -> Flask:
     @login_manager.user_loader
     def load_user(user_id):
         return db.get_or_404(Users, user_id)
-    
+
     # 3) Register blueprints
     from .api import bp as web_bp
     app.register_blueprint(web_bp)                 # HTML at "/"

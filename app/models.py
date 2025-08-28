@@ -9,6 +9,7 @@ from sqlalchemy import String, DateTime, ForeignKey, Table, Column
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from flask_login import UserMixin
 
+
 user_orders = db.Table(
     "user_orders",
     db.Column("cart_id", db.ForeignKey("cart_table.id"), primary_key=True),
@@ -18,7 +19,7 @@ user_orders = db.Table(
 order_product = db.Table(
     "order_product",
     db.Column("order_id", db.ForeignKey("order_table.id"), primary_key=True),
-    db.Column("product_id", db.ForeignKey("product_table.id"), primary_key=True),
+    db.Column("product_id", db.ForeignKey("products_table.id"), primary_key=True),
 )
 
 
