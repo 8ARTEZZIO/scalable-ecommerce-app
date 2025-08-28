@@ -1,3 +1,10 @@
-flask
-SQLALchemy
-gunicorn
+Flask==3.1.2
+Flask-SQLAlchemy==3.1.2
+SQLAlchemy==2.0.43
+psycopg[binary]==3.2.9
+Flask-Login==0.6.3
+Flask-WTF==1.2.2
+Flask-Migrate==4.1.0
+python-dotenv==1.1.1
+gunicorn==23.0.0        # skip on Windows; use 'waitress' there if needed
+email-validator==2.3.0  # only needed if you validate emails in forms
