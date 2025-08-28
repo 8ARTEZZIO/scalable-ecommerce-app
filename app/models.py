@@ -4,17 +4,25 @@ All the SQLAlchemy models.
 Keep it framework-agnostic and light.
 """
 from datetime import datetime
-from extensions import db, Base
+from .extensions import db, Base
 from sqlalchemy import String, DateTime, ForeignKey, Table, Column
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from flask_login import UserMixin
 
-order_products = db.Table(
-    "order_products",
-    db.Column("order_id", db.ForeignKey("cart_table.id"), primary_key=True),
+user_orders = db.Table(
+    "user_orders",
+    db.Column("cart_id", db.ForeignKey("cart_table.id"), primary_key=True),
     db.Column("product_id", db.ForeignKey("products_table.id"), primary_key=True),
 )
 
-class Users(db.Model):
+order_product = db.Table(
+    "order_product",
+    db.Column("order_id", db.ForeignKey("order_table.id"), primary_key=True),
+    db.Column("product_id", db.ForeignKey("product_table.id"), primary_key=True),
+)
+
+
+class Users(UserMixin, db.Model):
     __tablename__ = "users_table"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -40,6 +48,10 @@ class Products(db.Model):
     is_active: Mapped[bool]
     created_at: Mapped[str] = mapped_column(DateTime)
     updated_at: Mapped[str]
+    order: Mapped[list["Order"]] = relationship(
+        secondary=order_product,
+        back_populates="products"
+    )
     # (Optional, later) product_images: (id, product_id, url, alt_text, position)
     # (Optional, later) categories + product_categories (many-to-many)
 
@@ -52,13 +64,19 @@ class Cart(db.Model):
     updated_at: Mapped[str]
     user_id: Mapped[int] = mapped_column(ForeignKey("users_table.id"))
     users: Mapped["Users"] = relationship(back_populates="cart")
-    children: Mapped[list[Products]] = relationship(secondary=order_products)
+    children: Mapped[list[Products]] = relationship(secondary=user_orders)
 
 
 class Order(db.Model):  # finalized purchase
+    __tablename__ = "order_table"
+
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users_table.id"), nullable=True)
     users: Mapped["Users"] = relationship(back_populates="order")
+    products: Mapped[list[Products]] = relationship(
+        secondary=order_product,
+        back_populates="order"
+    )
     status: Mapped[str]
     subtotal: Mapped[int]
     tax_total: Mapped[int]
@@ -120,6 +138,6 @@ class Shipments(db.Model):
 # [✔]User 1—1 Cart: users.id → carts.user_id (unique)
 # [✔]Cart — Product: cart_items (cart_id, product_id, quantity)
 # [✔]User 1— Orders*: orders.user_id (nullable for guests)
-# [ ]Order — Product (via OrderItem): order_items (order_id, product_id, quantity, unit_price, …)
+# [ ]Order — Product: order_items (order_id, product_id, quantity, unit_price, …)
 # [ ]Order 1—1 Address (billing/shipping): FK(s) to addresses or inline address fields on orders
 # [ ]Order 1— Payments*, Order 1— Shipments*

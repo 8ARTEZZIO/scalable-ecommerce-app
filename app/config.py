@@ -14,8 +14,11 @@ class Config:
     # MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
 
 # You can add more configs for different environments if needed:
-class DevelopmentConfig(Config):
+class DevConfig(Config):
     DEBUG = True
 
-class ProductionConfig(Config):
+class ProdConfig(Config):
     DEBUG = False
+
+class TestConfig(Config):
+    DEBUG = True

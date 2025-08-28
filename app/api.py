@@ -5,24 +5,20 @@ call DB/services →
 return output
 [ simple Flask routing basically ]
 """
-from flask import Flask, render_template, Blueprint
+from flask import Blueprint, render_template
 import datetime
 
 bp = Blueprint('api', __name__)
-app = Flask(__name__, template_folder='templates')
 
-@app.route("/")
-def hello_world():
+@bp.route("/")
+def index():
     year = datetime.date.today().year
     return render_template("index.html", year=year)
 
-@app.route("/products")
+@bp.route("/products")
 def products():
     return render_template("products.html")
 
-@app.route("/error")
+@bp.route("/error")
 def error():
     return render_template("404.html")
-
-if __name__ == "__main__":
-    app.run(port=5050, debug=True)
