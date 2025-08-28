@@ -105,4 +105,3 @@ This project is licensed under the MIT License.
 ## Author
 
 Bartlomiej Kuzma
-Inspired to bring clarity, structure, and real-world architecture into every line of code.
