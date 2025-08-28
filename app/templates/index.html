@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <form class="fixed-top start-50 top-50 translate-middle w-75" style="max-width:500px;"
-      action="{{ url_for('products') }}" method="get">
+      action="{{ url_for('api.products') }}" method="get">
     <div class="input-group input-group-lg shadow">
         <input type="search" id="search-input" name="q"
                class="form-control search-input"

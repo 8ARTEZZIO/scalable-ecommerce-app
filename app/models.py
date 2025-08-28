@@ -4,9 +4,10 @@ All the SQLAlchemy models.
 Keep it framework-agnostic and light.
 """
 from datetime import datetime
-from extensions import db, Base
+from .extensions import db, Base
 from sqlalchemy import String, DateTime, ForeignKey, Table, Column
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from flask_login import UserMixin
 
 user_orders = db.Table(
     "user_orders",
@@ -21,7 +22,7 @@ order_product = db.Table(
 )
 
 
-class Users(db.Model):
+class Users(UserMixin, db.Model):
     __tablename__ = "users_table"
 
     id: Mapped[int] = mapped_column(primary_key=True)
