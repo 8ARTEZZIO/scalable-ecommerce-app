@@ -1,4 +1,4 @@
-# 🛒 Scalable E-Commerce System [in progress...]
+# Scalable E-Commerce System [in progress...]
 
 A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy**, and **Bootstrap** for clean and responsive UI display. This project is designed with extensibility, modularity, and real-world architecture in mind.
 
@@ -90,7 +90,7 @@ flask run
 
 ---
 
-## 🙌 Contributions
+## Contributions
 
 Pull requests and contributions are welcome. Please open an issue first to discuss what you would like to change or add.
 
