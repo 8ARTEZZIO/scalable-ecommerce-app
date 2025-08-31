@@ -13,6 +13,7 @@ from flask import Flask, render_template
 from .extensions import db, migrate, login_manager, csrf
 from .config import DevConfig, ProdConfig
 from .models import Users
+from flask_bootstrap import Bootstrap5
 
 
 def create_app() -> Flask:
@@ -28,30 +29,21 @@ def create_app() -> Flask:
     migrate.init_app(app, db)
     login_manager.init_app(app)   # only used if you wire Flask-Login
     csrf.init_app(app)            # Flask-WTF/CSRF protection
+    bootstrap = Bootstrap5(app)
 
+    # 3) Load a Login Manager
     @login_manager.user_loader
     def load_user(user_id):
         return db.get_or_404(Users, user_id)
 
-    # 3) Register blueprints
+    # 4) Register blueprints
     from .api import bp as web_bp
     app.register_blueprint(web_bp)                 # HTML at "/"
 
-    # Optional JSON API (only if you have app/api.py)
-    try:
-        from .api import bp as api_bp
-        app.register_blueprint(api_bp, url_prefix="/api")
-    except Exception:
-        pass
+    # 5) Import models so Flask-Migrate can discover them
+    from . import models
 
-    # 4) Import models so Alembic/Flask-Migrate can discover them
-    from . import models  # noqa: F401
-
-    # 5) Jinja globals & error pages
-    @app.context_processor
-    def inject_year():
-        return {"year": datetime.utcnow().year}
-
+    # 6) error pages
     @app.errorhandler(404)
     def not_found(e):
         return render_template("404.html"), 404
