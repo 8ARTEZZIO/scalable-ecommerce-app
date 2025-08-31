@@ -58,6 +58,11 @@ scalable-ecommerce-app/
 ├── run.py
 └── requirements.txt
 ```
+---
+
+## Prerequisites
+- Python **3.12** (check with `python --version`)
+- (Optional) Docker Desktop for Postgres, or a local PostgreSQL 16+
 
 ---
 
@@ -68,24 +73,51 @@ scalable-ecommerce-app/
 git clone https://github.com/your-username/scalable-ecommerce-app.git
 cd scalable-ecommerce-app
 ```
-2. **Create a virtual environment**
+2. **Virtual env (Python 3.12)**
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python -m venv .venv
+# macOS/Linux
+source .venv/bin/activate
+# Windows (PowerShell)
+# .venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
 ```
 3. **Install dependecies**
 ```bash
 pip install -r requirements.txt
 ```
-4. **Set up the database**
+4. **Environment**
 ```bash
-flask db init
-flask db migrate -m "Initial migration"
-flask db upgrade
+cp .env.example .env
 ```
-5. **Run the app**
+  By default we use SQLite:
+
+```env
+# pick ONE of these:
+
+# (Default) SQLite — no install needed
+DATABASE_URL=sqlite:///dev.db
+
+# PostgreSQL (Docker or native)
+# DATABASE_URL=postgresql+psycopg://ecom_user:ecom_pass@127.0.0.1:5432/ecom
+
+APP_ENV=dev
+SECRET_KEY=change-me
+```
+5. **Set up the database**
+- If migrations already exist (repo has migrations/):
 ```bash
-flask run
+flask --app run.py db upgrade
+```
+- If this is the first time creating migrations:
+```bash
+flask --app run.py db init
+flask --app run.py db migrate -m "initial schema"
+flask --app run.py db upgrade
+```
+6. **Run the app**
+```bash
+flask --app run.py run
 ```
 
 ---
