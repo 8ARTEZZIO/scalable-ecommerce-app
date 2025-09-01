@@ -5,7 +5,8 @@ call DB/services →
 return output
 [ simple Flask routing basically ]
 """
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, redirect, url_for
+from .forms import *
 import datetime
 
 bp = Blueprint('api', __name__)
@@ -27,6 +28,13 @@ def error():
 def login():
     return render_template("login.html")
 
-@bp.route("/register")
+@bp.route("/register", methods=["GET", "POST"])
 def register():
-    return render_template("signup.html")
+
+    form = Register()
+    if form.validate_on_submit():
+        username = form.username
+        print(username)
+
+
+    return render_template("signup.html", form=form)

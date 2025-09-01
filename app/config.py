@@ -1,8 +1,6 @@
 import os
+from dotenv import load_dotenv; load_dotenv()
 
-from flask.cli import load_dotenv
-
-load_dotenv()
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-secret-key'
@@ -21,6 +19,6 @@ class DevConfig(Config):
 
 class ProdConfig(Config):
     FLASK_ENV = 'production'
-    DEBUG = False
+    DEBUG = True
     TESTING = False
     DATABASE_URI = os.environ.get('PROD_DATABASE_URI')
