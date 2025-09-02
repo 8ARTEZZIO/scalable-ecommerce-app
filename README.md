@@ -6,7 +6,7 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
 
 ---
 
-## Features ( ✅ if done )
+## Features ( [x] if done )
 
 - [ ] User registration and login (can create account, log in/out, and @login_required pages work):
   - [x] Model: `Users` with `id, username, email(unique), password_hash, role(default="user")`
