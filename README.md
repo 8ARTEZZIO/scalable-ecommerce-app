@@ -9,7 +9,7 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
 ## Features ( ✅ if done )
 
 - [ ] User registration and login (can create account, log in/out, and @login_required pages work):
-  - [ ] Model: `Users` with `id, username, email(unique), password_hash, role(default="user")`
+  - [x] Model: `Users` with `id, username, email(unique), password_hash, role(default="user")`
   - [ ] Flask-Login glue: `user_loader, login_view, @login_required`
   - [ ] Forms: `RegisterForm, LoginForm` (Flask-WTF; email validator)
   - [ ] Routes: `/register` (GET/POST), `/login` (GET/POST), `/logout` (POST/GET)
@@ -57,11 +57,11 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
   - [ ] Admin detail: `GET /admin/orders/<id>` showing items and addresses
   - [ ] Status transitions: `POST /admin/orders/<id>/status` (pending → paid → fulfilled → cancelled)
 - [ ] Bootstrap-based responsive UI (pages look consistent on mobile/desktop):
-  - [ ] `base.html`: navbar (brand + search), footer, flash partial
+  - [x] `base.html`: navbar (brand + search), footer, flash partial
   - [ ] Make forms pretty: use `form-floating`, validation messages
   - [ ] 404/500 page
   - [ ] Sticky header + centered hero search on `/`
-  - [ ] Dark Theme + small custom CSS (loaded after Bootstrap)
+  - [x] Dark Theme + small custom CSS (loaded after Bootstrap)
   - [ ] Accessibility pass: labels, aria, focus states
 - [ ] Clean project structure for scalability (new contributors can run the app in minutes):
   - [x] Project structure: app factory, blueprints, `extensions.py, config.py, wsgi.py`
