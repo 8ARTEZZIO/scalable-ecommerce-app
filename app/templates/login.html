@@ -9,7 +9,7 @@
             {% if messages %}
             <ul class=flashes>
                 {% for message in messages %}
-                <li>{{ message }}</li>
+                  {{ message }}
                 {% endfor %}
             </ul>
             {% endif %}
@@ -19,8 +19,14 @@
                 <div class="text-center mb-3">
                     <h1 class="h4 fw-semibold">Log In</h1>
                 </div>
-                {{ render_field(form.username) }}
-                {{ render_field(form.password) }}
+                <div class="form-floating mb-3">
+                    {{ form.username(class="form-control", id="floatingInput", placeholder="email") }}
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.password(class="form-control", id="floatingInput", placeholder="password") }}
+                    <label for="floatingInput">Password</label>
+                </div>
                 {{ render_field(form.submit, class_="btn btn-success w-100") }}
             </form>
         </div>

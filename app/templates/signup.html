@@ -11,17 +11,21 @@
                 <div class="text-center mb-3">
                     <h1 class="h4 fw-semibold">Create account</h1>
                 </div>
-                <div class="mb-3">
-                    {{ render_field(form.username) }}
+                <div class="form-floating mb-3">
+                    {{ form.username(class="form-control", id="floatingInput", placeholder="email") }}
+                    <label for="floatingInput">Username</label>
                 </div>
-                <div class="mb-3">
-                    {{ render_field(form.email) }}
+                <div class="form-floating mb-3">
+                    {{ form.email(class="form-control", id="floatingInput", placeholder="email") }}
+                    <label for="floatingInput">Email address</label>
                 </div>
-                <div class="mb-3">
-                    {{ render_field(form.password) }}
+                <div class="form-floating mb-3">
+                    {{ form.password(class="form-control", id="floatingInput", placeholder="password") }}
+                    <label for="floatingInput">Password</label>
                 </div>
-                <div class="mb-3">
-                    {{ render_field(form.r_password) }}
+                <div class="form-floating mb-3">
+                    {{ form.r_password(class="form-control", id="floatingInput", placeholder="r_pass") }}
+                    <label for="floatingInput">Repeat Password</label>
                 </div>
                 {% if error %}
                 <p class=error><strong>Error:</strong> {{ error }}

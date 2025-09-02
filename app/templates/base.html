@@ -61,8 +61,12 @@
             <li><a href="#" class="nav-link px-2 text-white">About</a></li>
         </ul>
         <div class="text-end">
-            <button onclick="location.href='{{url_for('api.login')}}'" type="button" class="btn btn-outline-light me-2">Login</button>
-            <button onclick="location.href='{{url_for('api.register')}}'" type="button" class="btn btn-success">Sign-up</button>
+            {% if not current_user.is_authenticated %}
+                <button onclick="location.href='{{url_for('api.login')}}'" type="button" class="btn btn-outline-light me-2">Login</button>
+                <button onclick="location.href='{{url_for('api.register')}}'" type="button" class="btn btn-success">Sign-up</button>
+            {% else %}
+                <button onclick="location.href='{{url_for('api.logout')}}'" type="button" class="btn btn-success">Logout</button>
+            {% endif %}
         </div>
     </div>
 </header>
