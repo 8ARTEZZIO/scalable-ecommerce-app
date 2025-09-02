@@ -30,6 +30,7 @@ class Users(UserMixin, db.Model):
     username: Mapped[str] = mapped_column(unique=True)
     email: Mapped[str] = mapped_column(unique=True)
     password_hash: Mapped[str] = mapped_column(String(225))
+    role: Mapped[str] = mapped_column(default="user")
     created_at: Mapped[str] = mapped_column(DateTime)
     carts: Mapped["Cart"] = relationship(back_populates="users")
     orders: Mapped[list["Order"]] = relationship(back_populates="users")

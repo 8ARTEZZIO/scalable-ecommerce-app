@@ -2,11 +2,11 @@
 Run the app
 e.g. app = Flask(__name__)
 initialize all the models
-make sure it connects to the app
-return create_app
+make sure it connects to the
+app's main functions
+return app
 """
 # app/__init__.py
-from __future__ import annotations
 import os
 from datetime import datetime
 from flask import Flask, render_template
@@ -14,6 +14,7 @@ from .extensions import db, migrate, login_manager, csrf
 from .config import DevConfig, ProdConfig
 from .models import Users
 from flask_bootstrap import Bootstrap5
+from dotenv import load_dotenv; load_dotenv()
 
 
 def create_app() -> Flask:
