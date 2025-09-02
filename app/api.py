@@ -10,7 +10,7 @@ from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
 
-from .extensions import db
+from .extensions import db, login_manager
 from .models import Users, Products  # add others later (Cart, Orders, etc.)
 from .forms import Login, Register
 
@@ -56,7 +56,8 @@ def register():
 
     return render_template("signup.html", form=form, error=error)
 
-@bp.route("/logout", methods=["POST", "GET"])
+@bp.route("/logout")
+@login_required
 def logout():
-
-    return render_template("index.html")
+    logout_user()
+    return redirect(url_for('api.login'))

@@ -35,7 +35,10 @@ def create_app() -> Flask:
     # 3) Load a Login Manager
     @login_manager.user_loader
     def load_user(user_id):
-        return db.get_or_404(Users, user_id)
+        return Users.query.filter_by(alternative_id=user_id).first()
+
+    def get_id(self):
+        return str(self.alternative_id)
 
     # 4) Register blueprints
     from .api import bp as web_bp
