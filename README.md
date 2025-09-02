@@ -12,7 +12,7 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
   - [x] Model: `Users` with `id, username, email(unique), password_hash, role(default="user")`
   - [ ] Flask-Login glue: `user_loader, login_view, @login_required`
   - [ ] Forms: `RegisterForm, LoginForm` (Flask-WTF; email validator)
-  - [ ] Routes: `/register` (GET/POST), `/login` (GET/POST), `/logout` (POST/GET)
+  - [x] Routes: `/register` (GET/POST), `/login` (GET/POST), `/logout` (POST/GET)
   - [ ] Templates: `register.html, login.html`; navbar shows Login/Logout state
   - [ ] Flash messages + redirects (POST→Redirect→GET)
 - [ ] Product catalog (browse/search/detail works with seed data):
