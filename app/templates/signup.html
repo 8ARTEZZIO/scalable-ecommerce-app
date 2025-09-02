@@ -28,8 +28,8 @@
                     <label for="floatingInput">Repeat Password</label>
                 </div>
                 {% if error %}
-                <p class=error><strong>Error:</strong> {{ error }}
-                <p></p>
+                    <p class=error><strong>Error:</strong> {{ error }}
+                    <p></p>
                 {% endif %}
                 {{ render_field(form.submit, class_="btn btn-success w-100") }}
             </form>
