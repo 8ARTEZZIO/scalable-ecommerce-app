@@ -12,7 +12,7 @@ from datetime import datetime
 from flask import Flask, render_template
 from .extensions import db, migrate, login_manager, csrf
 from .config import DevConfig, ProdConfig
-from .models import Users
+from .models import User
 from flask_bootstrap import Bootstrap5
 from dotenv import load_dotenv; load_dotenv()
 
@@ -35,10 +35,7 @@ def create_app() -> Flask:
     # 3) Load a Login Manager
     @login_manager.user_loader
     def load_user(user_id):
-        return Users.query.filter_by(alternative_id=user_id).first()
-
-    def get_id(self):
-        return str(self.alternative_id)
+        return db.get_or_404(User, user_id)
 
     # 4) Register blueprints
     from .api import bp as web_bp
