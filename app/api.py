@@ -5,7 +5,7 @@ call DB/services →
 return output
 [ simple Flask routing basically ]
 """
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, flash, render_template, request, redirect, url_for
 from .forms import *
 import datetime
 
@@ -26,15 +26,24 @@ def error():
 
 @bp.route("/login")
 def login():
-    return render_template("login.html")
+
+    form=Login()
+    return render_template("login.html", form=form)
 
 @bp.route("/register", methods=["GET", "POST"])
 def register():
-
+    error = None
     form = Register()
     if form.validate_on_submit():
-        username = form.username
-        print(username)
 
+        username = form.username.data
+        email = form.email.data
+        password = form.password.data
+        r_pass = form.r_password.data
 
-    return render_template("signup.html", form=form)
+        if password == r_pass:
+            return redirect(url_for('api.index'))
+        else:
+            error = 'passwords must be identical'
+
+    return render_template("signup.html", form=form, error=error)

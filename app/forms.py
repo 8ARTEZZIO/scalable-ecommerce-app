@@ -9,8 +9,13 @@ from wtforms.validators import DataRequired, Length
 
 
 class Register(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(3, 40)])
+    username = StringField(validators=[DataRequired(), Length(3, 40)])
     email = StringField('Email address', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     r_password = PasswordField('Repeat Password', validators=[DataRequired()])
     submit = SubmitField('Sign up')
+
+class Login(FlaskForm):
+    username = StringField(validators=[DataRequired(), Length(3, 40)])
+    password = PasswordField(validators=[DataRequired()])
+    submit = SubmitField('Log In')

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_form, render_field %}
+{% block content %}
+
+<div class="d-flex align-items-center justify-content-center py-5">
+    <div class="card shadow-lg border-0 rounded-4" style="max-width:420px; width:100%;">
+        <div class="card-body p-4 text-center">
+
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <div class="text-center mb-3">
+                    <h1 class="h4 fw-semibold">Create account</h1>
+                </div>
+                <div class="mb-3">
+                    {{ render_field(form.username) }}
+                </div>
+                <div class="mb-3">
+                    {{ render_field(form.email) }}
+                </div>
+                <div class="mb-3">
+                    {{ render_field(form.password) }}
+                </div>
+                <div class="mb-3">
+                    {{ render_field(form.r_password) }}
+                </div>
+                {% if error %}
+                <p class=error><strong>Error:</strong> {{ error }}
+                <p></p>
+                {% endif %}
+                {{ render_field(form.submit, class_="btn btn-success w-100") }}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
