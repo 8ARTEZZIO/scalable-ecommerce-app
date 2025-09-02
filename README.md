@@ -6,7 +6,7 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
 
 ---
 
-## Features ([✅] if done)
+## Features ( ✅ if done )
 
 - [ ] User registration and login
 - [ ] Product catalog (CRUD for admin)
