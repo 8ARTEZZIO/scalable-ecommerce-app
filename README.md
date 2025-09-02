@@ -8,10 +8,41 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
 
 ## Features ( ✅ if done )
 
-- [ ] User registration and login
-- [ ] Product catalog (CRUD for admin)
-- [ ] Shopping cart system
-- [ ] Checkout and order history
+- [ ] User registration and login (can create account, log in/out, and @login_required pages work):
+  - [ ] Model: `Users` with `id, username, email(unique), password_hash, role(default="user")`
+  - [ ] Flask-Login glue: `user_loader, login_view, @login_required`
+  - [ ] Forms: `RegisterForm, LoginForm` (Flask-WTF; email validator)
+  - [ ] Routes: `/register` (GET/POST), `/login` (GET/POST), `/logout` (POST/GET)
+  - [ ] Templates: `register.html, login.html`; navbar shows Login/Logout state
+  - [ ] Flash messages + redirects (POST→Redirect→GET)
+- [ ] Product catalog (browse/search/detail works with seed data):
+  - [ ] Product list: `/products` with pagination, basic search `?q=`, sort by price/date
+  - [ ] Product detail: `/products/<slug_or_id>` with image, price, description
+  - [ ] Templates: `products.html` (grid), `product.html` (detail)
+  - [ ] Optional: API endpoints `/api/products` for future JS
+- [ ] Admin-only product management (CRUD) (admin can create/edit/disable products; non-admins 403):
+  - [ ] Authorization: `@admin_required` decorator (checks `current_user.role == "admin"`)
+  - [ ] Admin blueprint: `/admin`
+  - [ ] Routes: list, create, edit, delete:
+    - [ ] `GET /admin/products`
+    - [ ] `GET/POST /admin/products/new`
+    - [ ] `GET/POST /admin/products/<id>/edit`
+    - [ ] `POST /admin/products/<id>/delete`
+  - [ ] Forms: `ProductForm` (name, slug, price, stock, is_active, image URL)
+  - [ ] Templates: `admin/products_list.html, admin/product_form.html`
+- [ ] Shopping cart system (add/update/remove works; totals update; empty cart path handled):
+  - [ ] Models:
+    - [ ] `Cart: id, user_id(unique), created_at, updated_at`
+  - [ ] `Services: add_to_cart(product, qty), update_qty(item, qty), remove_item(item), cart_total(cart)`
+  - [ ] Routes:
+    - [ ] `POST /cart/add` (from product detail/list)
+    - [ ] `GET /cart` (view)
+    - [ ] `POST /cart/update/<item_id>` (change qty)
+    - [ ] `POST /cart/remove/<item_id>`
+  - [ ] Template: `cart.html` (line items, qty inputs, totals)
+  - [ ] Stock guard: prevent qty > stock; show message
+- [ ] Checkout and order history:
+  - [ ] 
 - [ ] Admin-only controls for product management
 - [ ] Bootstrap-based responsive UI
 - [ ] Clean project structure for scalability
