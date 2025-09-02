@@ -44,6 +44,8 @@ scalable-ecommerce-app/
 │ │ ├── cart.html
 │ │ ├── checkout.html
 │ │ ├── index.html
+│ │ ├── login.html
+│ │ ├── signup.html
 │ │ ├── product.html
 │ │ └── products.html
 │ ├── __init__.py
