@@ -41,11 +41,32 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
     - [ ] `POST /cart/remove/<item_id>`
   - [ ] Template: `cart.html` (line items, qty inputs, totals)
   - [ ] Stock guard: prevent qty > stock; show message
-- [ ] Checkout and order history:
-  - [ ] 
-- [ ] Admin-only controls for product management
-- [ ] Bootstrap-based responsive UI
-- [ ] Clean project structure for scalability
+- [ ] Checkout and order history (you can place an order, see confirmation, and view past orders):
+  - [ ] Models:
+    - [ ] `Orders: id, user_id(nullable for guest), status(pending/paid), subtotal, tax_total, shipping_total, grand_total, currency, placed_at, shipping_name/line1/city/postcode/country`
+    - [ ] `OrderItem: id, order_id, product_id, product_name, unit_price, quantity, line_total`
+  - [ ] FLow:
+    - [ ] `GET /checkout`: show shipping form + order summary
+    - [ ] `POST /checkout`: validate stock, create `Order` + `OrderItems` (snapshot name/price), decrement stock, clear cart, redirect to `/orders/<id>/confirmation`
+  - [ ] Order history:
+    - [ ] GET /account/orders (list user’s orders)
+    - [ ] GET /orders/<id> (detail; 404 if not owner unless admin)
+  - [ ] Templates: `checkout.html, order_confirmation.html, orders.html, order_detail.html`   
+- [ ] Admin-only controls for product management (basic ops: admin can view and change order status):
+  - [ ] Admin list: `GET /admin/orders` with filters by status/date
+  - [ ] Admin detail: `GET /admin/orders/<id>` showing items and addresses
+  - [ ] Status transitions: `POST /admin/orders/<id>/status` (pending → paid → fulfilled → cancelled)
+- [ ] Bootstrap-based responsive UI (pages look consistent on mobile/desktop):
+  - [ ] `base.html`: navbar (brand + search), footer, flash partial
+  - [ ] Make forms pretty: use `form-floating`, validation messages
+  - [ ] 404/500 page
+  - [ ] Sticky header + centered hero search on `/`
+  - [ ] Dark Theme + small custom CSS (loaded after Bootstrap)
+  - [ ] Accessibility pass: labels, aria, focus states
+- [ ] Clean project structure for scalability (new contributors can run the app in minutes):
+  - [x] Project structure: app factory, blueprints, `extensions.py, config.py, wsgi.py`
+  - [x] README.md: quick start (SQLite + Docker Postgres), .env.example
+  - [ ] Gunicorn command documented; Dockerfile/compose later if you want 
 
 ---
 
