@@ -85,3 +85,7 @@ def logout():
 @bp.route("/features")
 def features():
     return render_template("features.html")
+
+@bp.route("/about")
+def about():
+    return render_template("about.html")
