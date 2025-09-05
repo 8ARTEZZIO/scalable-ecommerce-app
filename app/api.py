@@ -1,11 +1,10 @@
 """
-HTTP logic only.
 Parse input →
 call DB/services →
 return output
-[ simple Flask routing basically ]
+[ simple Flask routing basically + helper funcs ]
 """
-from flask import Blueprint, flash, render_template, request, redirect, url_for
+from flask import Blueprint, flash, render_template, request, redirect, url_for, session
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
@@ -36,9 +35,12 @@ def login():
 
     form=Login()
     if form.validate_on_submit():
+
         password = form.password.data
         result = db.session.execute(db.select(User).where(User.username == form.username.data))
         user = result.scalar()
+        db.session.close()
+
         if not user:
             flash("That username does not exist, please try again.")
             return redirect(url_for('api.login'))
@@ -53,28 +55,45 @@ def login():
 
 @bp.route("/register", methods=["GET", "POST"])
 def register():
+
     error = None
     form = Register()
     if form.validate_on_submit():
 
+        # take user input
+        username = form.username.data
+        email = form.email.data
         password = form.password.data
         r_pass = form.r_password.data
 
-        new_user = User(username=form.username.data,
-                        email=form.email.data,
-                        password_hash=generate_password_hash(password),
-                        created_at=date.today().strftime("%B %d, %Y")
-        )
+        # check if username is not taken
+        if db.session.execute(db.select(User).where(User.username == username)).scalar():
+            flash("This username is already taken.")
+            error = True
 
-        db.session.add(new_user)
-        db.session.commit()
+        # check if email is not taken
+        if db.session.execute(db.select(User).where(User.email == email)).scalar():
+            flash("This email is in use.")
+            error = True
 
-        if password == r_pass:
-            return redirect(url_for('api.index'))
-        else:
-            error = 'passwords must be identical'
+        # check if two passwords are the same
+        if password != r_pass:
+            error = True
+            flash('Passwords must be identical.')
 
-    return render_template("signup.html", form=form, error=error)
+        if not error:
+            new_user = User(username=username,
+                            email=email,
+                            password_hash=generate_password_hash(password),
+                            created_at=date.today().strftime("%B %d, %Y")
+                            )
+            db.session.add(new_user)
+            db.session.commit()
+            db.session.close()
+
+            flash('Registered successfully!')
+
+    return render_template("signup.html", form=form)
 
 @bp.route("/logout")
 @login_required
@@ -89,3 +108,11 @@ def features():
 @bp.route("/about")
 def about():
     return render_template("about.html")
+
+@bp.route("/profile")
+def profile():
+    return render_template("profile.html")
+
+@bp.route("/add")
+def add_product():
+    return render_template("add_product.html")
