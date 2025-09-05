@@ -48,26 +48,44 @@
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
         crossorigin="anonymous"></script>
 <header class="p-3 text-bg-dark frosted header-blur">
-    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"><a href="/"
-                                                                                                        class="d-flex align-items-center mb-2 mb-lg-2 text-white text-decoration-none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#5cb85c" class="bi bi-tree"
-             viewBox="0 0 16 16">
-            <path d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.098L3.076 8.735A.5.5 0 0 0 3.5 9.5h.191l-1.638 3.276a.5.5 0 0 0 .447.724H7V16h2v-2.5h4.5a.5.5 0 0 0 .447-.724L12.31 9.5h.191a.5.5 0 0 0 .424-.765L10.902 5.5H11a.5.5 0 0 0 .416-.777zM6.437 4.758A.5.5 0 0 0 6 4.5h-.066L8 1.401 10.066 4.5H10a.5.5 0 0 0-.424.765L11.598 8.5H11.5a.5.5 0 0 0-.447.724L12.69 12.5H3.309l1.638-3.276A.5.5 0 0 0 4.5 8.5h-.098l2.022-3.235a.5.5 0 0 0 .013-.507"/>
-        </svg>
-    </a>
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/"
+           class="d-flex align-items-center mb-2 mb-lg-2 text-white text-decoration-none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#5cb85c" class="bi bi-tree"
+                 viewBox="0 0 16 16">
+                <path d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.098L3.076 8.735A.5.5 0 0 0 3.5 9.5h.191l-1.638 3.276a.5.5 0 0 0 .447.724H7V16h2v-2.5h4.5a.5.5 0 0 0 .447-.724L12.31 9.5h.191a.5.5 0 0 0 .424-.765L10.902 5.5H11a.5.5 0 0 0 .416-.777zM6.437 4.758A.5.5 0 0 0 6 4.5h-.066L8 1.401 10.066 4.5H10a.5.5 0 0 0-.424.765L11.598 8.5H11.5a.5.5 0 0 0-.447.724L12.69 12.5H3.309l1.638-3.276A.5.5 0 0 0 4.5 8.5h-.098l2.022-3.235a.5.5 0 0 0 .013-.507"/>
+            </svg>
+        </a>
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-1 justify-content-center mb-md-0">
             <li><a href="{{ url_for("api.features") }}" class="nav-link px-2 text-white">Features</a></li>
             <li><a href="{{ url_for("api.products") }}" class="nav-link px-2 text-white">Products</a></li>
             <li><a href="{{ url_for("api.about") }}" class="nav-link px-2 text-white">About</a></li>
         </ul>
-        <div class="text-end">
-            {% if not current_user.is_authenticated %}
-                <button onclick="location.href='{{url_for('api.login')}}'" type="button" class="btn btn-outline-light me-2">Login</button>
-                <button onclick="location.href='{{url_for('api.register')}}'" type="button" class="btn btn-success">Sign-up</button>
-            {% else %}
-                <button onclick="location.href='{{url_for('api.logout')}}'" type="button" class="btn btn-success">Logout</button>
-            {% endif %}
-        </div>
+        {% if not current_user.is_authenticated: %}
+            <div class="text-end">
+                <button onclick="location.href='{{url_for('api.login')}}'" type="button" class="btn btn-outline-light me-2">
+                    Login
+                </button>
+                <button onclick="location.href='{{url_for('api.register')}}'" type="button" class="btn btn-success">
+                    Sign-up
+                </button>
+            </div>
+        {% else: %}
+            <div class="dropdown text-end"><a href="#"
+                                              class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                                              data-bs-toggle="dropdown" aria-expanded="false"> <img
+                    src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle"> </a>
+                <ul class="dropdown-menu text-small" style="">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('api.profile') }}">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="{{ url_for('api.logout') }}">Sign out</a></li>
+                </ul>
+            </div>
+        {% endif %}
     </div>
 </header>
 

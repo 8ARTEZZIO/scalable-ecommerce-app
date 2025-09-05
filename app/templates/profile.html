@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container py-5" style="max-width:720px;">
+  <h1 class="h3 mb-4 text-center text-dark">Your profile</h1>
+
+  <!-- Account info -->
+  <div class="card bg-dark border-0 shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="h5 mb-3">Account</h2>
+      <dl class="row mb-0">
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">{{ current_user.email }}</dd>
+        <dt class="col-sm-3">Username</dt>
+        <dd class="col-sm-9">{{ current_user.username }}</dd>
+      </dl>
+
+      <!-- Change email -->
+      <form class="row g-2 mt-3" method="post" action="#">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="col-md-8">
+          <label for="new_email" class="form-label">Change email</label>
+          <input type="email" id="new_email" name="email" class="form-control"
+                 placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+          <button class="btn btn-success w-100" type="submit">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Change password -->
+  <div class="card bg-dark border-0 shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="h5 mb-3">Change password</h2>
+      <form method="post" action="#" class="row g-3">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="col-12">
+          <label for="current_password" class="form-label">Current</label>
+          <input type="password" id="current_password" name="current_password"
+                 class="form-control" autocomplete="current-password" required>
+        </div>
+        <div class="col-md-6">
+          <label for="new_password" class="form-label">New</label>
+          <input type="password" id="new_password" name="new_password"
+                 class="form-control" autocomplete="new-password" minlength="8" required>
+        </div>
+        <div class="col-md-6">
+          <label for="confirm_password" class="form-label">Confirm</label>
+          <input type="password" id="confirm_password" name="confirm_password"
+                 class="form-control" autocomplete="new-password" required>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary" type="submit">Update password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Other settings + Danger zone -->
+  <div class="card bg-dark border-0 shadow-sm">
+    <div class="card-body">
+      <h2 class="h5 mb-3">Other</h2>
+      <form method="post" action="#" class="d-flex align-items-center gap-2">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-check form-switch me-3">
+          <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter"
+                 {% if current_user['newsletter'] %}checked{% endif %}>
+          <label class="form-check-label" for="newsletter">Email newsletter</label>
+        </div>
+        <button class="btn btn-outline-light btn-sm" type="submit">Save</button>
+      </form>
+
+      <hr class="my-4">
+
+      <form method="post" action="#"
+            onsubmit="return confirm('Delete your account? This cannot be undone.');">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="btn btn-outline-danger btn-sm" type="submit">Delete account</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

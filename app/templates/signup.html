@@ -27,10 +27,14 @@
                     {{ form.r_password(class="form-control", id="floatingInput", placeholder="r_pass") }}
                     <label for="floatingInput">Repeat Password</label>
                 </div>
-                {% if error %}
-                    <p class=error><strong>Error:</strong> {{ error }}
+                {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
                     <p></p>
-                {% endif %}
+                  {% endif %}
+                {% endwith %}
                 {{ render_field(form.submit, class_="btn btn-success w-100") }}
             </form>
         </div>
