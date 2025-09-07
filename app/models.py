@@ -138,9 +138,9 @@ class Product(db.Model):
 #TODO
 # Connect all the relationships
 # Relationships (at a glance) put '✔' if done
-# [✔]User 1—1 Cart: users.id → carts.user_id (unique)
-# [✔]Cart — Product: cart_items (cart_id, product_id, quantity)
-# [✔]User 1— Orders*: orders.user_id (nullable for guests)
+# [ ]User 1—1 Cart: users.id → carts.user_id (unique)
+# [ ]Cart — Product: cart_items (cart_id, product_id, quantity)
+# [ ]User 1— Orders*: orders.user_id (nullable for guests)
 # [ ]Order — Product: order_items (order_id, product_id, quantity, unit_price, …)
 # [ ]Order 1—1 Address (billing/shipping): FK(s) to addresses or inline address fields on orders
 # [ ]Order 1— Payments*, Order 1— Shipments*

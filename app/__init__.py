@@ -41,8 +41,8 @@ def create_app() -> Flask:
             return None
 
     # 4) Register blueprints
-    # from .api import bp as api_bp
-    # app.register_blueprint(api_bp)                 # HTML at "/"
+    from .api import bp as api_bp
+    app.register_blueprint(api_bp)                 # HTML at "/"
     from .web import bp as web_bp
     app.register_blueprint(web_bp)
 
