@@ -16,7 +16,7 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
   - [x] Templates: `register.html, login.html`; navbar shows Login/Logout state
   - [x] Flash messages + redirects (POST→Redirect→GET)
 - [ ] Product catalog (browse/search/detail works with seed data):
-  - [ ] Product list: `/products` with pagination, basic search `?q=`, sort by price/date
+  - [x] Product list: `/products` with pagination, basic search `?q=`
   - [ ] Product detail: `/products/<slug_or_id>` with image, price, description
   - [ ] Templates: `products.html` (grid), `product.html` (detail)
   - [ ] Optional: API endpoints `/api/products` for future JS
