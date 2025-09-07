@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="container py-5" style="max-width:720px;">
+<section class="container py-5 profile-card">
   <h1 class="h3 mb-4 text-center text-dark">Your profile</h1>
 
   <!-- Account info -->
-  <div class="card bg-dark border-0 shadow-sm mb-4">
+  <div class="card bg-dark border-0 shadow-sm mb-5 position-relative">
     <div class="card-body">
       <h2 class="h5 mb-3">Account</h2>
+
       <dl class="row mb-0">
         <dt class="col-sm-3">Email</dt>
         <dd class="col-sm-9">{{ current_user.email }}</dd>

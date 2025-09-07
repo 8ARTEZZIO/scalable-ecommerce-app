@@ -16,4 +16,4 @@ db = SQLAlchemy(model_class=Base)
 migrate = Migrate()
 csrf = CSRFProtect()
 login_manager = LoginManager()
-login_manager.login_view = "api.login"
+login_manager.login_view = "web.login"

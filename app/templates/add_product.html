@@ -3,48 +3,46 @@
 <section class="container py-5" style="max-width:780px;">
   <h1 class="h4 mb-4 text-dark">Quick add product (dev)</h1>
 
-  <form method="post" action="{{ url_for('api.products') }}" class="row g-3">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-
+  <form method="POST" class="row g-3">
+      {{ form.hidden_tag() }}
     <div class="col-md-8">
-      <label class="form-label text-dark">Name</label>
-      <input name="name" class="form-control" required>
+      {{ form.name(class="form-control", placeholder="Name") }}
     </div>
-    <div class="col-md-4">
-      <label class="form-label text-dark">Slug <span class="text-dark">(auto if empty)</span></label>
-      <input name="slug" class="form-control" placeholder="auto">
+    <div class="col-md-8">
+      {{ form.slug(placeholder="Slug (product URL)") }}
     </div>
-
-    <div class="col-md-4">
-      <label class="form-label text-dark">Price</label>
-      <input name="price" class="form-control" placeholder="e.g. 12.99 or 1299 (cents)" required>
+    <div class="col-md-8">
+      {{ form.price(class="form-control", placeholder="PRICE e.g. 12.99 or 1299") }}
     </div>
-    <div class="col-md-2">
-      <label class="form-label text-dark">Currency</label>
-      <input name="currency" class="form-control" value="USD" maxlength="3">
+    <div class="col-md-8">
+      {{ form.currency(class="form-control", placeholder="Currency e.g. USD") }}
     </div>
-    <div class="col-md-2">
-      <label class="form-label text-dark">Stock</label>
-      <input name="stock" type="number" class="form-control" value="0" min="0">
+    <div class="col-md-8">
+      {{ form.stock(class="form-control", placeholder="Stock") }}
     </div>
-    <div class="col-12">
-      <label class="form-label text-dark">Image URL</label>
-      <input name="main_image_url" class="form-control" placeholder="https://...">
+    <div class="col-md-8">
+      {{ form.image_url(class="form-control", placeholder="IMG URL e.g.: https://...") }}
     </div>
-    <div class="col-12">
-      <label class="form-label text-dark">Description</label>
-      <textarea name="description" class="form-control" rows="3"></textarea>
+    <div class="col-md-8">
+      {{ form.description(class="form-control", placeholder="Description") }}
     </div>
-    <div class="col-12">
+    <div class="col-md-8">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="is_active" name="is_active" checked>
-        <label class="form-check-label text-dark" for="is_active">Active</label>
+        {{ form.active(placeholder="Status (Active)") }}
       </div>
     </div>
 
     <div class="col-12">
-      <button class="btn btn-success" type="submit">Add product</button>
-      <a class="btn btn-outline-light ms-2" href="{{ url_for('api.products') }}">View store</a>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+              <p>{{ message }}</p>
+          {% endfor %}
+          <p></p>
+        {% endif %}
+      {% endwith %}
+      {{ render_field(form.submit) }}
+      <a class="btn btn-outline-light ms-2" href="{{ url_for('web.products') }}">View store</a>
     </div>
   </form>
 

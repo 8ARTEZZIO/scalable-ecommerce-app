@@ -52,3 +52,17 @@ body {
   --bs-bg-opacity: .99;
   background-color: rgba(33,37,41,.70) !important;
 }
+
+/* reset to Bootstrap defaults */
+.dropdown-item {
+  position: static;
+  left: auto;
+  top: auto;
+  width: auto;
+  z-index: 3000;
+}
+
+.profile-card {
+  max-width: 720px;
+  overflow: visible;
+}

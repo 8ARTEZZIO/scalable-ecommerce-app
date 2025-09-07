@@ -5,7 +5,7 @@ Keep it framework-agnostic and light.
 """
 from datetime import datetime
 from .extensions import db, Base
-from sqlalchemy import String, DateTime, ForeignKey, Table, Column
+from sqlalchemy import String, DateTime, ForeignKey, Table, Column, Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from flask_login import UserMixin
 from datetime import datetime
@@ -38,20 +38,19 @@ class User(UserMixin, db.Model):
     # orders: Mapped[list["Order"]] = relationship(back_populates="users")
 
 
-# class Products(Base):
-#     __tablename__ = "products_table"
-#
-#     id: Mapped[int] = mapped_column(primary_key=True)
-#     name: Mapped[str] = mapped_column(String(225))
-#     slug: Mapped[str] = mapped_column(unique=True)
-#     price: Mapped[int]
-#     currency: Mapped[str]
-#     description: Mapped[str] = mapped_column(String(500))
-#     main_image_url: Mapped[str]
-#     stock: Mapped[int]
-#     is_active: Mapped[bool]
-#     created_at: Mapped[str] = mapped_column(DateTime)
-#     updated_at: Mapped[str]
+class Product(db.Model):
+    # __tablename__ = "products_table"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(225))
+    slug: Mapped[str] = mapped_column(unique=True)
+    price: Mapped[int] = mapped_column(Integer)
+    currency: Mapped[str] = mapped_column(String(3))
+    description: Mapped[str] = mapped_column(String(500))
+    main_image_url: Mapped[str]
+    stock: Mapped[int] = mapped_column(Integer)
+    is_active: Mapped[bool]
+    created_at: Mapped[str] = mapped_column(String(255))
 #     order: Mapped[list["Order"]] = relationship(
 #         secondary=order_product,
 #         back_populates="products"
