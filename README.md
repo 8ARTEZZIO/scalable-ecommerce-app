@@ -28,7 +28,7 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
     - [ ] `GET/POST /admin/products/new`
     - [ ] `GET/POST /admin/products/<id>/edit`
     - [ ] `POST /admin/products/<id>/delete`
-  - [ ] Forms: `ProductForm` (name, slug, price, stock, is_active, image URL)
+  - [x] Forms: `AddProcuct` (name, slug, price, stock, is_active, image URL)
   - [ ] Templates: `admin/products_list.html, admin/product_form.html`
 - [ ] Shopping cart system (add/update/remove works; totals update; empty cart path handled):
   - [ ] Models:
@@ -56,17 +56,17 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
   - [ ] Admin list: `GET /admin/orders` with filters by status/date
   - [ ] Admin detail: `GET /admin/orders/<id>` showing items and addresses
   - [ ] Status transitions: `POST /admin/orders/<id>/status` (pending → paid → fulfilled → cancelled)
-- [ ] Bootstrap-based responsive UI (pages look consistent on mobile/desktop):
+- [x] Bootstrap-based responsive UI (pages look consistent on desktop (but not mobile yet):
   - [x] `base.html`: navbar (brand + search), footer, flash partial
   - [x] Make forms pretty: use `form-floating`, validation messages
   - [x] 404 page
   - [x] Sticky header + search on `/`
   - [x] Dark Theme + small custom CSS (loaded after Bootstrap)
-  - [ ] Accessibility pass: labels, aria, focus states
+  - [x] Accessibility pass: labels, aria, focus states
 - [ ] Clean project structure for scalability (new contributors can run the app in minutes):
   - [x] Project structure: app factory, blueprints, `extensions.py, config.py, wsgi.py`
   - [x] README.md: quick start (SQLite + Docker Postgres), .env.example
-  - [ ] Gunicorn command documented; Dockerfile/compose later if you want 
+  - [ ] Gunicorn command documented; Dockerfile/compose later
 
 ---
 
