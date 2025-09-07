@@ -35,11 +35,16 @@ def create_app() -> Flask:
     # 3) Load a Login Manager
     @login_manager.user_loader
     def load_user(user_id):
-        return db.get_or_404(User, user_id)
+        try:
+            return db.session.get(User, int(user_id))
+        except (TypeError, ValueError):
+            return None
 
     # 4) Register blueprints
-    from .api import bp as web_bp
-    app.register_blueprint(web_bp)                 # HTML at "/"
+    # from .api import bp as api_bp
+    # app.register_blueprint(api_bp)                 # HTML at "/"
+    from .web import bp as web_bp
+    app.register_blueprint(web_bp)
 
     # 5) Import models so Flask-Migrate can discover them
     from . import models
