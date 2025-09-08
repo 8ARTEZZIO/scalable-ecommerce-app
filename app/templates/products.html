@@ -40,6 +40,7 @@
               View
             </a>
             <form method="post" action="{{ url_for('web.add_to_cart', id=p.id) }}" class="flex-fill">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
               <button class="btn btn-success btn-sm w-100" type="submit">Add to cart</button>
             </form>
           </div>

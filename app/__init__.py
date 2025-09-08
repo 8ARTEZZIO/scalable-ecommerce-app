@@ -45,6 +45,8 @@ def create_app() -> Flask:
     app.register_blueprint(api_bp)                 # HTML at "/"
     from .web import bp as web_bp
     app.register_blueprint(web_bp)
+    from .admin import bp as admin_bp
+    app.register_blueprint(admin_bp)
 
     # 5) Import models so Flask-Migrate can discover them
     from . import models
