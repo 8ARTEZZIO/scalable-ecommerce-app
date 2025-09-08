@@ -134,9 +134,6 @@ source .venv/bin/activate
 # Windows (PowerShell)
 # .venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-
-# Linux/MacOS
-gunicorn -w 4 -k gthread --threads 4 --timeout 60 -b 0.0.0.0:8000 wsgi:app
 ```
 3. **Install dependecies**
 ```bash
@@ -159,6 +156,9 @@ DATABASE_URL=sqlite:///dev.db
 
 APP_ENV=dev
 SECRET_KEY=change-me
+
+# Linux/MacOS
+gunicorn -w 4 -k gthread --threads 4 --timeout 60 -b 0.0.0.0:8000 wsgi:app
 ```
 5. **Set up the database**
 - If migrations already exist (repo has migrations/):
