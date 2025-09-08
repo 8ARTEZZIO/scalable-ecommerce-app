@@ -15,9 +15,9 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
   - [x] Routes: `/register` (GET/POST), `/login` (GET/POST), `/logout` (POST/GET)
   - [x] Templates: `register.html, login.html`; navbar shows Login/Logout state
   - [x] Flash messages + redirects (POST→Redirect→GET)
-- [ ] Product catalog (browse/search/detail works with seed data):
+- [x] Product catalog (browse/search/detail works with seed data):
   - [x] Product list: `/products` with pagination, basic search `?q=`
-  - [ ] Product detail: `/products/<slug_or_id>` with image, price, description
+  - [x] Product detail: `/products/<slug_or_id>` with image, price, description
   - [x] Templates: `products.html` (grid), `product.html` (detail)
 - [ ] Admin-only product management (CRUD) (admin can create/edit/disable products; non-admins 403):
   - [ ] Authorization: `@admin_required` decorator (checks `current_user.role == "admin"`)
