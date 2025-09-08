@@ -20,8 +20,8 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
   - [x] Product detail: `/products/<slug_or_id>` with image, price, description
   - [x] Templates: `products.html` (grid), `product.html` (detail)
 - [ ] Admin-only product management (CRUD) (admin can create/edit/disable products; non-admins 403):
-  - [ ] Authorization: `@admin_required` decorator (checks `current_user.role == "admin"`)
-  - [ ] Admin blueprint: `/admin`
+  - [x] Authorization: `@admin_required` decorator (checks `current_user.role == "admin"`)
+  - [x] Admin blueprint: `/admin`
   - [ ] Routes: list, create, edit, delete:
     - [ ] `GET /admin/products`
     - [ ] `GET/POST /admin/products/new`
