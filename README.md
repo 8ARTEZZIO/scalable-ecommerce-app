@@ -62,10 +62,10 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
   - [x] Sticky header + search on `/`
   - [x] Dark Theme + small custom CSS (loaded after Bootstrap)
   - [x] Accessibility pass: labels, aria, focus states
-- [ ] Clean project structure for scalability (new contributors can run the app in minutes):
+- [x] Clean project structure for scalability (new contributors can run the app in minutes):
   - [x] Project structure: app factory, blueprints, `extensions.py, config.py, wsgi.py`
   - [x] README.md: quick start (SQLite + Docker Postgres), .env.example
-  - [ ] Gunicorn command documented; Dockerfile/compose later
+  - [x] Gunicorn command documented; (Dockerfile/compose later)
 
 ---
 
