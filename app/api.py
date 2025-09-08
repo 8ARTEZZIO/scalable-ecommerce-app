@@ -16,3 +16,6 @@ from .forms import Login, Register, AddProduct
 from datetime import date
 
 bp = Blueprint('api', __name__)
+
+# @bp.route("/api/get_prod_data", methods=["GET"])
+# def get_prod_data():

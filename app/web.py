@@ -43,6 +43,8 @@ def get_prod_id():
 
     if request.method == "GET":
         name = request.args.get("q")
+        if not name:
+            return render_template("index.html")
         return redirect(url_for('web.product', name=name))
     else:
         return render_template("index.html")
@@ -164,7 +166,9 @@ def add_product():
             flash(f'Successfully added a new product: {form.name.data}')
 
     recent = db.session.execute(db.select(Product).order_by(Product.name)).scalars()
-    db.session.close()
 
     return render_template("add_product.html", recent=recent, form=form)
 
+@bp.route("/add-to-cart/<int:id>", methods=["GET", "POST"])
+def add_to_cart(id):
+    return render_template("products.html")

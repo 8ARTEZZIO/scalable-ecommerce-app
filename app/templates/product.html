@@ -1,27 +1,73 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
-    <div class="col-md-6 p-lg-5 mx-auto my-5"><h1 class="display-3 fw-bold">{{ product.name }}</h1>
-        <h3 class="fw-normal text-muted mb-3">{{ product.description }}</h3>
-        <div class="d-flex gap-3 justify-content-center lead fw-normal"><a class="icon-link" href="#">
-            Learn more
-            <svg class="bi" aria-hidden="true">
-                <use xlink:href="#chevron-right"></use>
-            </svg>
-        </a> <a class="icon-link" href="#">
-            Buy
-            <svg class="bi" aria-hidden="true">
-                <use xlink:href="#chevron-right"></use>
-            </svg>
-        </a></div>
-    </div>
-    <div class="product-device shadow-sm d-none d-md-block">
-        <img src="{{ product.main_image_url }}">
-    </div>
-    <div class="product-device product-device-2 shadow-sm d-none d-md-block">
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item"><a href="{{ url_for('web.index') }}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{{ url_for('web.products') }}">Products</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+    </ol>
+  </nav>
 
+  <div class="row g-4 align-items-start">
+    <!-- Gallery -->
+    <div class="col-12 col-lg-6">
+      <div class="card bg-dark border-0 shadow-sm">
+        <div class="ratio ratio-4x3 bg-black">
+          {% if product.main_image_url %}
+            <img src="{{ product.main_image_url }}" class="rounded-top object-fit-cover" alt="{{ product.name }}">
+          {% else %}
+            <img src="{{ url_for('static', filename='img/placeholder.png') }}" class="rounded-top object-fit-cover" alt="No image">
+          {% endif %}
+        </div>
+        {% if images %}
+        <div class="d-flex gap-2 p-2 flex-wrap">
+          {% for img in images %}
+            <a href="{{ img.url }}" class="d-inline-block" style="width: 84px;">
+              <img src="{{ img.url }}" class="img-fluid rounded object-fit-cover" alt="{{ img.alt or p.name }}">
+            </a>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
     </div>
-</div>
+
+    <!-- Info / Buy box -->
+    <div class="col-12 col-lg-6">
+      <h1 class="h3 mb-2">{{ product.name }}</h1>
+
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <span class="badge text-bg-success fs-6">{{ "%.2f"|format(product.price) }} {{ product.currency or 'USD' }}</span>
+        {% if product.stock is defined %}
+          {% if product.stock > 0 %}
+            <span class="badge text-bg-secondary">In stock: {{ product.stock }}</span>
+          {% else %}
+            <span class="badge text-bg-danger">Out of stock</span>
+          {% endif %}
+        {% endif %}
+      </div>
+
+      {% if product.description %}
+        <p class="text-body-secondary">{{ product.description }}</p>
+      {% endif %}
+
+      <form method="post" action="{{ url_for('web.add_to_cart', id=product.id) }}" class="d-flex align-items-center gap-2 mt-3">
+        <label for="qty" class="form-label mb-0 small">Qty</label>
+        <input id="qty" name="quantity" type="number" class="form-control" value="1" min="1" style="max-width: 90px;"
+               {% if product.stock is defined and product.stock > 0 %} max="{{ product.stock }}"{% endif %}>
+        <button class="btn btn-success" type="submit" {% if product.stock is defined and product.stock == 0 %} disabled{% endif %}>
+          Add to cart
+        </button>
+      </form>
+
+      <hr class="my-4">
+
+      <dl class="row mb-0 small">
+        {% if product.slug %}<dt class="col-4 text-body-secondary">Slug</dt><dd class="col-8">{{ product.slug }}</dd>{% endif %}
+        {% if product.created_at %}<dt class="col-4 text-body-secondary">Added</dt><dd class="col-8">{{ product.created_at }}</dd>{% endif %}
+      </dl>
+    </div>
+  </div>
 
 {% endblock %}
