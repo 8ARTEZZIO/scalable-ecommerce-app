@@ -22,11 +22,11 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
 - [ ] Admin-only product management (CRUD) (admin can create/edit/disable products; non-admins 403):
   - [x] Authorization: `@admin_required` decorator (checks `current_user.role == "admin"`)
   - [x] Admin blueprint: `/admin`
-  - [x] Routes: list, create, edit, delete:
+  - [ ] Routes: list, create, edit, delete:
     - [x] `GET /admin/products`
     - [x] `GET/POST /admin/products/new`
-    - [x] `GET/POST /admin/products/<id>/edit`
-    - [x] `POST /admin/products/<id>/delete`
+    - [ ] `GET/POST /admin/products/<id>/edit`
+    - [ ] `POST /admin/products/<id>/delete`
   - [x] Forms: `AddProcuct` (name, slug, price, stock, is_active, image URL)
   - [ ] Templates: `admin/products_list.html, admin/product_form.html`
 - [ ] Shopping cart system (add/update/remove works; totals update; empty cart path handled):
