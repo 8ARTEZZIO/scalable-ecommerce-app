@@ -58,7 +58,7 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
 - [x] Bootstrap-based responsive UI (pages look consistent on desktop (but not mobile yet):
   - [x] `base.html`: navbar (brand + search), footer, flash partial
   - [x] Make forms pretty: use `form-floating`, validation messages
-  - [ ] 403, 404 page
+  - [x] 403, 404 page
   - [x] Sticky header + search on `/`
   - [x] Dark Theme + small custom CSS (loaded after Bootstrap)
   - [x] Accessibility pass: labels, aria, focus states
