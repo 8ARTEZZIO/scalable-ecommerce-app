@@ -75,7 +75,7 @@
 
       <hr class="my-4">
 
-      <form method="post" action="#"
+      <form method="post" action="{{ url_for('web.delete_account', username=current_user.username) }}"
             onsubmit="return confirm('Delete your account? This cannot be undone.');">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <button class="btn btn-outline-danger btn-sm" type="submit">Delete account</button>

@@ -73,11 +73,11 @@ def login():
     if form.validate_on_submit():
 
         password = form.password.data
-        user = db.session.execute(db.select(User).where(User.username == form.username.data)).scalar()
+        user = db.session.execute(db.select(User).where(User.email == form.username.data)).scalar()
         db.session.close()
 
         if not user:
-            flash("That username does not exist, please try again.")
+            flash("That email does not exist, please try again.")
             return redirect(url_for('web.login'))
         elif not check_password_hash(user.password_hash, password):
             flash('Password incorrect, please try again.')
@@ -103,19 +103,22 @@ def register():
 
         # check if username is not taken
         if db.session.execute(db.select(User).where(User.username == username)).scalar():
+            db.session.close()
             flash("This username is already taken.")
             error = True
 
 
         # check if email is not taken
         if db.session.execute(db.select(User).where(User.email == email)).scalar():
+            db.session.close()
             flash("This email is in use.")
             error = True
 
         # check if two passwords are the same
         if password != r_pass:
-            error = True
+            db.session.close()
             flash('Passwords must be identical.')
+            error = True
 
         if not error:
             new_user = User(username=username,
@@ -186,3 +189,15 @@ def add_product():
 @bp.route("/add-to-cart/<int:id>", methods=["GET", "POST"])
 def add_to_cart(id):
     return render_template("products.html")
+
+@bp.route("/delete-account/<username>", methods=["GET", "POST"])
+def delete_account(username):
+    # delete account
+    account_to_delete = db.session.execute(db.select(User).where(User.username == username)).scalar()
+    db.session.delete(account_to_delete)
+    db.session.commit()
+    db.session.close()
+    print(f"Deleted account {username}")
+
+    # redirect to the login page
+    return redirect(url_for('web.login'))
