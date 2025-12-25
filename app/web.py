@@ -73,7 +73,7 @@ def login():
     if form.validate_on_submit():
 
         password = form.password.data
-        user = db.session.execute(db.select(User).where(User.email == form.username.data)).scalar()
+        user = db.session.execute(db.select(User).where(User.username == form.username.data)).scalar()
         db.session.close()
 
         if not user:
@@ -151,40 +151,6 @@ def about():
 @bp.route("/profile")
 def profile():
     return render_template("profile.html")
-
-
-@bp.route("/add", methods=["POST", "GET"])
-@admin_required
-def add_product():
-
-    form = AddProduct()
-
-    if request.method == "POST":
-        if not form.validate():
-            flash('There was a problem with your submission')
-            return render_template('add_product.html', form=form)
-        else:
-            product = Product(
-                name=form.name.data,
-                slug=form.slug.data,
-                price=form.price.data,
-                currency=form.currency.data,
-                description=form.description.data,
-                main_image_url=form.image_url.data,
-                stock=form.stock.data,
-                is_active=form.active.data,
-                created_at=date.today().strftime("%B %d, %Y")
-            )
-
-            db.session.add(product)
-            db.session.commit()
-            db.session.close()
-
-            flash(f'Successfully added a new product: {form.name.data}')
-
-    recent = db.session.execute(db.select(Product).order_by(Product.name)).scalars()
-
-    return render_template("add_product.html", recent=recent, form=form)
 
 @bp.route("/add-to-cart/<int:id>", methods=["GET", "POST"])
 def add_to_cart(id):

@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <a class="btn btn-outline-light p-3 bg-success ms-2" href="{{ url_for('admin.admin_add_product') }}">Add Product</a>
+    {% for product in products %}
+    <div class="row mb-3 mt-3 p-3 text-center bg-success border border-dark">
+        <div class="col-4 themed-grid-col">{{ product.name }}</div>
+        <div class="col-4 themed-grid-col">{{ product.price }}</div>
+        <div class="col-4 themed-grid-col">{{ product.stock }}</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
