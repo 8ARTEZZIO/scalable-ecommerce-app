@@ -28,7 +28,7 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
     - [ ] `GET/POST /admin/products/<id>/edit`
     - [ ] `POST /admin/products/<id>/delete`
   - [x] Forms: `AddProcuct` (name, slug, price, stock, is_active, image URL)
-  - [ ] Templates: `admin/products_list.html, admin/product_form.html`
+  - [x] Templates: `admin/products_list.html, admin/product_form.html`
 - [ ] Shopping cart system (add/update/remove works; totals update; empty cart path handled):
   - [ ] Models:
     - [ ] `Cart: id, user_id(unique), created_at, updated_at`
