@@ -67,8 +67,8 @@ A scalable e-commerce backend built with **Flask**, **PostgreSQL**, **SQLAlchemy
   - [x] README.md: quick start (SQLite + Docker Postgres), .env.example
   - [x] Gunicorn command documented; (Dockerfile/compose later)
 - [ ] Payment and type of business model:
- - [ ] Stripe
- - [ ] Freemium
+  - [ ] Stripe
+  - [ ] Freemium
 
 ---
 
